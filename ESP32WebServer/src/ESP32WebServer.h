@@ -130,7 +130,15 @@ template<typename T> size_t streamFile(T &file, const String& contentType){
     sendHeader("Content-Encoding", "gzip");
   }
   send(200, contentType, "");
-  return _currentClient.write(file);
+  uint8_t buf[20];
+  size_t fsize = 0;
+  while(file.available()){
+      int got = file.read(buf, 20);
+      _currentClient.write(buf, got);
+      fsize += got;
+      yield();
+  }
+  return fsize;
 }
 
 protected:

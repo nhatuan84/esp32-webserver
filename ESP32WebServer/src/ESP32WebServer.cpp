@@ -355,7 +355,7 @@ void ESP32WebServer::sendContent_P(PGM_P content, size_t size) {
       free(chunkSize);
     }
   }
-  size_t chunkSize = 10;
+  size_t chunkSize = 20;
   int idx = 0;
   while(size != 0){
       if(size < chunkSize){
